@@ -1,4 +1,4 @@
-elfSums = []
+elfCalorieTotals = []
 currentElfCalories = 0
 
 with open('./Day1/input.txt') as file:
@@ -6,11 +6,19 @@ with open('./Day1/input.txt') as file:
   
   for line in input:
     if line == "\n":
-      elfSums.append(currentElfCalories)
+      elfCalorieTotals.append(currentElfCalories)
       currentElfCalories = 0
     else:
       currentElfCalories += int(line)
 
-highestCalories = max(elfSums)
-index = elfSums.index(highestCalories)
+highestCalories = max(elfCalorieTotals)
+index = elfCalorieTotals.index(highestCalories)
 print(f"Elf #{index + 1} (index {index}) is carrying the most calories @ {highestCalories}")
+
+# Part 2
+
+sortedCalorieTotals = elfCalorieTotals
+sortedCalorieTotals.sort(reverse=True)
+
+top3Sum = sum(sortedCalorieTotals[:3])
+print(f"The top 3 elves are carrying {top3Sum} calories in total")
