@@ -3,11 +3,6 @@ shapeScore = {
   "P": 2,
   "S": 3
 }
-outcomeScore = {
-  "L": 0,
-  "D": 3,
-  "W": 6
-}
 
 encryptionKey = {
   "A": "R",
@@ -54,4 +49,46 @@ with open("./Day2/input.txt") as file:
     totalScore += roundScore
     print(f"Round score: {roundScore}")
 
+  print(f"Total score: {totalScore}")
+
+# Part 2
+print("Part 2")
+
+outcomeScore = {
+  "X": 0,
+  "Y": 3,
+  "Z": 6
+}
+
+def getOutcomeValue(outcome):
+  return outcomeScore[outcome]
+
+def determineRequiredShapeValue(outcomeValue, opponentValue):
+  if (outcomeValue == 3):
+    return opponentValue
+  elif (outcomeValue == 0):
+    strategyValue = opponentValue + 2
+    strategyModulus = strategyValue % 3
+    return strategyValue if strategyModulus == 0 else strategyModulus
+  else:
+    strategyValue = opponentValue - 2
+    return strategyValue if strategyValue > 0 else strategyValue + 3
+
+with open("./Day2/input.txt") as file:
+  input = file.readlines()
+
+  totalScore = 0
+  for line in input:
+    characters = line.split(" ")
+    opponentEncoded = characters[0]
+    outcome = characters[1].strip()
+
+    opponentValue = decodeToValue(opponentEncoded)
+    outcomeValue = getOutcomeValue(outcome)
+
+    requiredShapeValue = determineRequiredShapeValue(outcomeValue, opponentValue)
+    roundScore = outcomeValue + requiredShapeValue
+    totalScore += roundScore
+    print(f"Round score: {roundScore}")
+  
   print(f"Total score: {totalScore}")
