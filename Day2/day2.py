@@ -32,10 +32,8 @@ def determineOutcomeScore(opponentValue, strategyValue):
     return 6
 
 with open("./Day2/input.txt") as file:
-  input = file.readlines()
-
   totalScore = 0
-  for line in input:
+  for line in file:
     characters = line.split(" ")
     opponentEncoded = characters[0]
     strategyEncoded = characters[1].strip()
@@ -75,10 +73,8 @@ def determineRequiredShapeValue(outcomeValue, opponentValue):
     return strategyValue if strategyValue > 0 else strategyValue + 3
 
 with open("./Day2/input.txt") as file:
-  input = file.readlines()
-
   totalScore = 0
-  for line in input:
+  for line in file:
     characters = line.split(" ")
     opponentEncoded = characters[0]
     outcome = characters[1].strip()

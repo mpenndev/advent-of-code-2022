@@ -2,9 +2,7 @@ elfCalorieTotals = []
 currentElfCalories = 0
 
 with open('./Day1/input.txt') as file:
-  input = file.readlines()
-  
-  for line in input:
+  for line in file:
     if line == "\n":
       elfCalorieTotals.append(currentElfCalories)
       currentElfCalories = 0

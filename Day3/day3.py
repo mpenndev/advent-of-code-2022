@@ -7,10 +7,8 @@ def getPriorityValue(character):
   return ord(character) - offset
 
 with open('./Day3/input.txt') as file:
-  input = file.readlines()
-
   sum = 0
-  for line in input:
+  for line in file:
     firstCompartment = line[:len(line)//2]
     secondCompartment = line[len(line)//2:]
 
