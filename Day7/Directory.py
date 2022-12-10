@@ -3,9 +3,9 @@ from File import File
 
 class Directory:
   def __init__(self, name: str):
-    self.name = name
-    self.directories = list()
-    self.files = list()
+    self.name: str = name
+    self.directories: List[Directory] = list()
+    self.files: List[File] = list()
 
   def getSize(self):
     sumOfFiles = sum([file.size for file in self.files])

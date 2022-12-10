@@ -24,19 +24,19 @@ def isDirectoryChange(text: str):
 
 fileTree = FileTree(Directory("/"))
 
-with open('./Day7/example.txt') as file:
+with open('./Day7/input.txt') as file:
   for line in file:
     line = line.strip()
 
     if isDirectory(line):
-      fileTree.currentDirectory.directories.append(extractDirectory(line))
+      fileTree.currentDirectory().directories.append(extractDirectory(line))
     elif isFile(line):
-      fileTree.currentDirectory.files.append(extractFile(line))
+      fileTree.currentDirectory().files.append(extractFile(line))
     elif isDirectoryChange(line):
       if ".." in line:
         fileTree.traverseToParent()
       else:
         fileTree.traverseToChild(line.split(" ")[2])
 
-fileTree.traverseToRoot()
-print("hello")
+upperThreshold = 100000
+print(f"Upper threshold: {upperThreshold}\nTotal size: {fileTree.getTotalSize(upperThreshold)}")
