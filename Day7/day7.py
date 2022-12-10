@@ -39,4 +39,17 @@ with open('./Day7/input.txt') as file:
         fileTree.traverseToChild(line.split(" ")[2])
 
 upperThreshold = 100000
-print(f"Upper threshold: {upperThreshold}\nTotal size: {fileTree.getTotalSize(upperThreshold)}")
+totalFileSize = fileTree.getTotalSize(upperThreshold)
+print(f"Upper threshold: {upperThreshold}\nTotal size: {totalFileSize}")
+
+# Part 2
+
+totalSpace = 70000000
+requiredSpace = 30000000
+
+unusedSpace = totalSpace - fileTree.rootDirectory().getSize()
+sizeToDelete = requiredSpace - unusedSpace
+
+filteredSummaries = list(filter(lambda s: s[1] >= sizeToDelete, fileTree.getRecursiveSummaries(fileTree.tree[0])))
+smallest = min(filteredSummaries, key = lambda s: s[1])
+print(smallest)
