@@ -1,4 +1,5 @@
 from typing import List
+from copy import deepcopy
 
 def parseStartingPosition(positionInput: List[str]) -> List[List[str]]:
   parsedPosition = []
@@ -14,14 +15,28 @@ def parseInstructions(instructionsInput: List[str]) -> List[List[int]]:
   return parsedInstructions
 
 def runInstructions(startingPosition: List[List[str]], instructions: List[List[int]]):
-  position = startingPosition
+  position = deepcopy(startingPosition)
   for instruction in instructions:
-    stackToMoveFrom = startingPosition[instruction[1] - 1]
-    stackToMoveTo = startingPosition[instruction[2] - 1]
+    stackToMoveFrom = position[instruction[1] - 1]
+    stackToMoveTo = position[instruction[2] - 1]
 
     for _ in range(instruction[0]):
       crate = stackToMoveFrom.pop(0)
       stackToMoveTo.insert(0, crate)
+  return position
+
+def getOutcomeString(outcome: List[List[str]]):
+  return ''.join([stack[0] for stack in outcome])
+
+def runWithMultiMove(startingPosition: List[List[str]], instructions: List[List[int]]):
+  position = deepcopy(startingPosition)
+  for instruction in instructions:
+    stackToMoveFrom = position[instruction[1] - 1]
+    stackToMoveTo = position[instruction[2] - 1]
+
+    crates = stackToMoveFrom[:instruction[0]]
+    del stackToMoveFrom[:instruction[0]]
+    stackToMoveTo[0:0] = crates
   return position
 
 with open("./Day5/input.txt") as file:
@@ -35,4 +50,9 @@ startingPosition = parseStartingPosition(positionInput)
 instructions = parseInstructions(instructionsInput)
 
 outcome = runInstructions(startingPosition, instructions)
-print(''.join([stack[0] for stack in outcome]))
+print(getOutcomeString(outcome))
+
+# Part 2
+
+outcome = runWithMultiMove(startingPosition, instructions)
+print(getOutcomeString(outcome))
